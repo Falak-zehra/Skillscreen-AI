@@ -27,6 +27,14 @@ An AI-powered student skill screening platform prototype built with **React**, *
   - **Critical Skill Gaps**: Top 2–3 priority skills that must be learned first with timeframe targets.
   - **Why These Skills Matter**: Concrete industry explanations for why each skill is crucial for the selected career.
   - **Recommended Next Action**: One high-leverage immediate action with estimated score lift.
+- **📈 My Progress Skill Tracker**:
+  - **Local Persistence (`localStorage`)**: Check off skills as you learn them; progress automatically persists across page refreshes.
+  - **10-Step Tracked Curriculum**: Sequenced curriculum mapped to your personalized roadmap.
+  - **Interactive Completion**: Interactive checkboxes / "Mark as Done" buttons for each skill.
+  - **Live Metrics**: Real-time completion percentage and visual multi-gradient progress bar.
+  - **Completed vs. Remaining Counters**: Instant filter views (*All*, *Remaining*, *Completed*).
+  - **"Next Skill to Learn" Recommendation**: Dynamically guides you to the earliest uncompleted milestone with a direct action shortcut.
+  - **Score Integration**: Dynamically calculates and displays your boosted Job-Ready Gap Score as skills are mastered.
 - **🤖 AI Career Advisor**:
   - Generates in-depth **Career Recommendations**, **Skill Maturity Assessments**, **Skill Gaps Diagnostic**, **30-Day Learning Roadmap** (daily milestones across 4 weeks), **3 Curated Projects** with resume bullet points, and **Recommended Technologies** categorized by stack.
   - Features loading states, error boundaries with retry mechanisms, and tabbed dashboard browsing.

@@ -22,15 +22,18 @@ import {
   Zap, 
   BookOpen,
   Bot,
-  Gauge
+  Gauge,
+  CheckSquare
 } from 'lucide-react';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
 import AICareerAdvisor from './AICareerAdvisor';
 import JobReadyScore from './JobReadyScore';
+import MyProgress from './MyProgress';
 import { SCREENING_QUESTIONS } from '../../data/assessmentData';
 import { generateRecommendations } from '../../utils/recommendationEngine';
+import { calculateJobReadyScore } from '../../utils/jobReadyScoreEngine';
 
 export default function StepResults({
   selectedAnswers,
@@ -51,12 +54,22 @@ export default function StepResults({
     nextSteps
   } = results;
 
+  // Calculate Job-Ready benchmark data to share with MyProgress
+  const jobReadyData = calculateJobReadyScore(selectedAnswers, careerDirectionData);
+
   const handlePrint = () => {
     window.print();
   };
 
   const scrollToScore = () => {
     const el = document.getElementById('job-ready-score');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToProgress = () => {
+    const el = document.getElementById('my-progress');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -102,6 +115,15 @@ export default function StepResults({
             className="text-xs text-cyan-300 border-cyan-500/30 hover:bg-cyan-500/10"
           >
             Gap Score
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={scrollToProgress}
+            icon={CheckSquare}
+            className="text-xs text-emerald-300 border-emerald-500/30 hover:bg-emerald-500/10"
+          >
+            My Progress
           </Button>
           <Button
             variant="outline"
@@ -246,7 +268,13 @@ export default function StepResults({
         careerRecommendation={careerDirectionData} 
       />
 
-      {/* 2. AI CAREER ADVISOR FEATURE (Flagship Section) */}
+      {/* 2. MY PROGRESS: INTERACTIVE SKILL TRACKER & ROADMAP PERSISTENCE */}
+      <MyProgress
+        selectedAnswers={selectedAnswers}
+        baseJobReadyScore={jobReadyData.score}
+      />
+
+      {/* 3. AI CAREER ADVISOR FEATURE (Flagship Section) */}
       <AICareerAdvisor selectedAnswers={selectedAnswers} />
 
       {/* 3. Skill Gaps Section (3–5 skills they should improve) */}
