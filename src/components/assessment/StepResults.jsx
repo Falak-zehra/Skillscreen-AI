@@ -21,12 +21,14 @@ import {
   Briefcase, 
   Zap, 
   BookOpen,
-  Bot
+  Bot,
+  Gauge
 } from 'lucide-react';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
 import AICareerAdvisor from './AICareerAdvisor';
+import JobReadyScore from './JobReadyScore';
 import { SCREENING_QUESTIONS } from '../../data/assessmentData';
 import { generateRecommendations } from '../../utils/recommendationEngine';
 
@@ -51,6 +53,13 @@ export default function StepResults({
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const scrollToScore = () => {
+    const el = document.getElementById('job-ready-score');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const scrollToAdvisor = () => {
@@ -85,6 +94,15 @@ export default function StepResults({
 
         {/* Global Dashboard Actions */}
         <div className="flex flex-wrap items-center gap-2.5">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={scrollToScore}
+            icon={Gauge}
+            className="text-xs text-cyan-300 border-cyan-500/30 hover:bg-cyan-500/10"
+          >
+            Gap Score
+          </Button>
           <Button
             variant="outline"
             size="sm"
@@ -221,8 +239,14 @@ export default function StepResults({
         </Card>
 
       </div>
+ 
+      {/* 1. DISTINCTIVE JOB-READY GAP SCORE FEATURE */}
+      <JobReadyScore 
+        selectedAnswers={selectedAnswers} 
+        careerRecommendation={careerDirectionData} 
+      />
 
-      {/* AI CAREER ADVISOR FEATURE (Flagship Section) */}
+      {/* 2. AI CAREER ADVISOR FEATURE (Flagship Section) */}
       <AICareerAdvisor selectedAnswers={selectedAnswers} />
 
       {/* 3. Skill Gaps Section (3–5 skills they should improve) */}

@@ -20,7 +20,13 @@ An AI-powered student skill screening platform prototype built with **React**, *
   - **Identified Skill Gaps**: 3–5 categorized gaps with severity tags, rationale, and recommended actions.
   - **Recommended Learning Path**: Logical 4-phase sequenced curriculum paced by weekly commitment.
   - **Recommended Projects**: 2–3 level-appropriate builds with tech stack tags and portfolio value.
-  - **Next Steps**: Step-by-step numbered actionable checklist.
+  - **🎯 Job-Ready Gap Score**:
+  - Dynamically calculated **0–100 Readiness Benchmark** tailored to the candidate's answers and target career path.
+  - **Skills You Have**: Validated strengths inferred from screening choices.
+  - **Skills to Improve**: Most important missing capabilities.
+  - **Critical Skill Gaps**: Top 2–3 priority skills that must be learned first with timeframe targets.
+  - **Why These Skills Matter**: Concrete industry explanations for why each skill is crucial for the selected career.
+  - **Recommended Next Action**: One high-leverage immediate action with estimated score lift.
 - **🤖 AI Career Advisor**:
   - Generates in-depth **Career Recommendations**, **Skill Maturity Assessments**, **Skill Gaps Diagnostic**, **30-Day Learning Roadmap** (daily milestones across 4 weeks), **3 Curated Projects** with resume bullet points, and **Recommended Technologies** categorized by stack.
   - Features loading states, error boundaries with retry mechanisms, and tabbed dashboard browsing.
