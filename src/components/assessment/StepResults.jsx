@@ -9,22 +9,24 @@ import {
   Clock, 
   Target, 
   Code2, 
-  Layers,
-  TrendingUp,
-  AlertTriangle,
-  FolderGit2,
-  ListOrdered,
-  ArrowRight,
-  Printer,
-  ChevronDown,
-  ChevronUp,
-  Briefcase,
-  Zap,
-  BookOpen
+  Layers, 
+  TrendingUp, 
+  AlertTriangle, 
+  FolderGit2, 
+  ListOrdered, 
+  ArrowRight, 
+  Printer, 
+  ChevronDown, 
+  ChevronUp, 
+  Briefcase, 
+  Zap, 
+  BookOpen,
+  Bot
 } from 'lucide-react';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
+import AICareerAdvisor from './AICareerAdvisor';
 import { SCREENING_QUESTIONS } from '../../data/assessmentData';
 import { generateRecommendations } from '../../utils/recommendationEngine';
 
@@ -51,8 +53,15 @@ export default function StepResults({
     window.print();
   };
 
+  const scrollToAdvisor = () => {
+    const el = document.getElementById('ai-advisor');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8 w-full animate-fade-in space-y-8">
+    <div className="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8 w-full animate-fade-in space-y-10">
       
       {/* Top Header & Overview Bar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
@@ -77,11 +86,20 @@ export default function StepResults({
         {/* Global Dashboard Actions */}
         <div className="flex flex-wrap items-center gap-2.5">
           <Button
+            variant="outline"
+            size="sm"
+            onClick={scrollToAdvisor}
+            icon={Bot}
+            className="text-xs"
+          >
+            AI Advisor
+          </Button>
+          <Button
             variant="secondary"
             size="sm"
             onClick={handlePrint}
             icon={Printer}
-            className="hidden sm:inline-flex"
+            className="hidden sm:inline-flex text-xs"
           >
             Save / Print
           </Button>
@@ -90,6 +108,7 @@ export default function StepResults({
             size="sm"
             onClick={onRetake}
             icon={RotateCcw}
+            className="text-xs"
           >
             Retake
           </Button>
@@ -98,6 +117,7 @@ export default function StepResults({
             size="sm"
             onClick={onBackToHome}
             icon={Home}
+            className="text-xs"
           >
             Back to Home
           </Button>
@@ -201,6 +221,9 @@ export default function StepResults({
         </Card>
 
       </div>
+
+      {/* AI CAREER ADVISOR FEATURE (Flagship Section) */}
+      <AICareerAdvisor selectedAnswers={selectedAnswers} />
 
       {/* 3. Skill Gaps Section (3–5 skills they should improve) */}
       <section className="space-y-4">
