@@ -21,38 +21,31 @@ import Badge from '../ui/Badge';
 import Button from '../ui/Button';
 import { getRoadmapSkills } from '../../utils/roadmapSkills';
 import { SCREENING_QUESTIONS } from '../../data/assessmentData';
+import { getSavedCompletedSkills, saveCompletedSkills } from '../../utils/storage';
 
 export default function MyProgress({ selectedAnswers, baseJobReadyScore = 65 }) {
-  const interest = SCREENING_QUESTIONS[1].options[selectedAnswers[1]] || 'Web Development';
-  const storageKey = `skillscreen_progress_${interest.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
+  const interest = SCREENING_QUESTIONS[1].options[selectedAnswers?.[1]] || 'Web Development';
 
   const skills = getRoadmapSkills(selectedAnswers);
   const totalSkills = skills.length;
 
   // Local storage initialization for completed skill IDs
   const [completedIds, setCompletedIds] = useState(() => {
-    try {
-      const saved = localStorage.getItem(storageKey);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) return parsed;
-      }
-    } catch (e) {
-      console.warn('Could not read saved progress from localStorage:', e);
-    }
-    return [];
+    return getSavedCompletedSkills(interest);
   });
 
   const [activeFilter, setActiveFilter] = useState('all'); // 'all' | 'remaining' | 'completed'
 
+  // Synchronize when interest track changes
+  useEffect(() => {
+    const loaded = getSavedCompletedSkills(interest);
+    setCompletedIds(loaded);
+  }, [interest]);
+
   // Persist to localStorage whenever completedIds change
   useEffect(() => {
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(completedIds));
-    } catch (e) {
-      console.warn('Could not save progress to localStorage:', e);
-    }
-  }, [completedIds, storageKey]);
+    saveCompletedSkills(interest, completedIds);
+  }, [completedIds, interest]);
 
   // Calculations
   const completedCount = completedIds.length;

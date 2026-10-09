@@ -34,6 +34,7 @@ import MyProgress from './MyProgress';
 import { SCREENING_QUESTIONS } from '../../data/assessmentData';
 import { generateRecommendations } from '../../utils/recommendationEngine';
 import { calculateJobReadyScore } from '../../utils/jobReadyScoreEngine';
+import { saveViewState } from '../../utils/storage';
 
 export default function StepResults({
   selectedAnswers,
